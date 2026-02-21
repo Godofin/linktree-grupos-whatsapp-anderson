@@ -178,24 +178,27 @@
                 // Adiciona delay progressivo na animação
                 const animationDelay = `${(index * 0.08)}s`;
 
+                // Layout alterado: flex-col (em coluna), texto embaixo e sem truncate
                 const linkHTML = `
                     <a href="${link.whatsapp_url}" target="_blank" 
-                       class="group block w-full bg-white border border-gray-200 hover:border-amber-500 rounded-xl p-4 flex items-center btn-hover text-gray-700 hover:text-amber-600 animate-fade-in-up"
+                       class="group block w-full bg-white border border-gray-200 hover:border-amber-500 rounded-xl p-5 flex flex-col items-center text-center btn-hover text-gray-700 animate-fade-in-up shadow-sm"
                        style="animation-delay: ${animationDelay};">
                         
-                        <!-- Imagem Reduzida -->
-                        <div class="w-12 h-12 rounded-lg flex items-center justify-center mr-4 overflow-hidden bg-gray-100 flex-shrink-0 group-hover:ring-2 group-hover:ring-amber-500 transition-all shadow-sm">
+                        <!-- Imagem no Topo (Centralizada e maior) -->
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-3 overflow-hidden bg-gray-100 flex-shrink-0 group-hover:ring-2 group-hover:ring-amber-500 transition-all shadow-sm">
                             <img src="${imgUrl}" alt="${link.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80'">
                         </div>
                         
-                        <!-- Textos com mais contraste -->
-                        <div class="flex-1 overflow-hidden">
-                            <h3 class="font-extrabold text-gray-900 truncate text-[16px]">${link.name}</h3>
-                            <p class="text-[11px] font-bold text-amber-600 truncate mt-0.5 uppercase tracking-wide">Entrar no grupo</p>
+                        <!-- Textos com quebra de linha (sem truncate) -->
+                        <div class="w-full px-2">
+                            <h3 class="font-extrabold text-gray-900 text-[15px] leading-snug mb-2">${link.name}</h3>
+                            
+                            <!-- Botãozinho interno do WhatsApp para dar mais destaque -->
+                            <div class="inline-flex items-center justify-center gap-1.5 bg-green-50 text-green-600 px-3 py-1.5 rounded-full border border-green-100 group-hover:bg-green-500 group-hover:text-white group-hover:border-green-500 transition-colors">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span class="text-[11px] font-bold uppercase tracking-wider mt-0.5">Entrar no grupo</span>
+                            </div>
                         </div>
-                        
-                        <!-- Ícone do WhatsApp ao invés do de link padrão -->
-                        <i class="fa-brands fa-whatsapp text-gray-300 group-hover:text-green-500 text-2xl ml-2 transition-colors"></i>
                     </a>
                 `;
 
