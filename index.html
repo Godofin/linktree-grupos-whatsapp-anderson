@@ -216,8 +216,19 @@
                 }
 
                 const data = await response.json();
+                
                 // Filtra apenas os links marcados como 'active'
-                allLinks = data.filter(link => link.active === true);
+                // E ordena por 'event_date' do mais próximo (menor data) para o mais distante (maior data)
+                allLinks = data
+                    .filter(link => link.active === true)
+                    .sort((a, b) => {
+                        // Se não houver event_date, joga para o final da lista
+                        if (!a.event_date) return 1;
+                        if (!b.event_date) return -1;
+                        
+                        // Converte a string 'YYYY-MM-DD' em data e compara
+                        return new Date(a.event_date) - new Date(b.event_date);
+                    });
                 
                 renderLinks(allLinks);
 
@@ -237,7 +248,7 @@
             const searchTerm = e.target.value.toLowerCase().trim();
             
             if (searchTerm === '') {
-                // Se a busca estiver vazia, mostra todos
+                // Se a busca estiver vazia, mostra todos (que já estão ordenados)
                 renderLinks(allLinks);
             } else {
                 // Filtra pelo termo (ignora maiúsculas/minúsculas)
